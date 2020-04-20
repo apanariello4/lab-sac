@@ -1,0 +1,12 @@
+<html>
+<body>
+    <form method="POST" target="{{ url_for('chat', room=room)}}">
+        <label for="username">Username:</label><br>
+        <input type="text" name="username"><br>
+        <label for="msg">Message:</label><br>
+        <input type="text" name="msg" required><br><br>
+        <input type="submit"><br>
+    <b>{{chat_name}}</b><br>
+    <a>{{msgs|safe}}</a>
+</body>
+</html>

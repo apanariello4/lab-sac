@@ -1,0 +1,15 @@
+<html>
+    <head><title>Exercise 2</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    </head>
+    <body>
+        <table>
+            {% for key, value in recipient.items() %}
+                <tr>
+                    <th> {{ key }} </th>
+                    <td> {{ value }} </td>
+                </tr>
+            {% endfor %}
+            </table>
+    </body>
+</html>

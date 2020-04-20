@@ -1,0 +1,12 @@
+<html>
+    <body>
+        <form method="POST" target="{{ url_for('search') }}">
+            <label for="iataCode">IATA:</label><br>
+            <input type="text" name="iataCode" required><br>
+            <input type="submit"><br>
+
+            {{airportName}}
+
+        </form>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+<html>
+    <body>
+        <form method="POST" target="{{ url_for('insert') }}">
+            <label for="artist_id">Artist id (UUID4):</label><br>
+            <input type="text" name="artist_id" required><br>
+            <label for="artist_name">Artist name:</label><br>
+            <input type="text" name="artist_name" required><br>
+            <input type="submit"><br>
+            {{recipient}}
+
+        </form>
+    </body>
+</html>

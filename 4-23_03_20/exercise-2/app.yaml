@@ -1,0 +1,11 @@
+runtime: python37
+
+handlers:
+- url: /(index.html)?
+  static_files: static/index.html
+  upload: index.html
+
+- url: /.*
+  secure: always
+  script: auto
+

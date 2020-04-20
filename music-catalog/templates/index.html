@@ -1,0 +1,18 @@
+<html>
+<body>
+    <a href='/insert'>Insert Form</a><br>
+
+    {% if artists %}
+    <table>
+        {% for id, value in artists.items() %}
+            <tr>
+                <tr><b style="font: bold;">Artist ID: {{ id }}, Artist Name: {{ value.name }}</b></tr></br></br>
+                    {% for id2, value2 in value.discs.items() %}
+                        <tr>DiscID: {{ id2 }}, {{value2}}</tr><br>
+                    {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>

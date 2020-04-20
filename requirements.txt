@@ -1,0 +1,4 @@
+flask
+falsk-restful
+requests
+google-cloud-firestore

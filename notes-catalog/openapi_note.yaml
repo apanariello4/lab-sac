@@ -1,0 +1,100 @@
+swagger: "2.0"
+
+info:
+  title: "Shared notebook"
+  description: "An application for the management of personal notes with support to sharing"
+  version: "1.0.0"
+
+host: "[YOUR_PROJECT_NAME].appspot.com"
+basePath: "/api/v1"
+
+schemes:
+    - "https"
+paths:
+    /notes/{owner_id}/{note_id}:
+      parameters: 
+      - name: owner_id
+        in: path
+        required: true
+        description: 'uuid of the owner of the note'
+        type: string
+        format: uuid
+      - name: note_id
+        in: path
+        required: true
+        description: 'identifier of the note'
+        type: string
+        minLength: 5
+        maxLength: 16
+      post:
+        description: "Insert a new note"
+        operationId: "postNote"
+        consumes:
+          - application/json
+        parameters:
+          - in: body
+            name: content
+            description: "Content of the note"
+            schema:
+              type: string
+              maxLength: 250
+            required: true
+        responses:
+          201:
+            description: "Success."
+          400:
+            description: "Invalid or missing NoteID"
+          409:
+            description: "Invalid input data"
+      get:
+        description: "Fetch the desired note"
+        operationId: "getNote"
+        responses:
+          200:
+            description: "Success."
+            schema: 
+              type: object
+              properties:
+                id:
+                  type: string
+                note:
+                  type: string
+          400:
+            description: "Invalid or missing NoteID"
+          409:
+            description: "Invalid input data"
+    /share/{owner_id}/{recipient_id}:
+      parameters:
+        - name: owner_id
+          in: path
+          required: true
+          description: 'uuid of the owner of the note to share'
+          type: string
+          format: uuid
+        - name: recipient_id
+          in: path
+          required: true
+          description: 'uuid of the recipient of the shared note'
+          type: string
+          format: uuid
+      post:
+        description: "Share the note from OwnerID to RecipientID"
+        operationId: "postShare"
+        consumes:
+          - application/json
+        parameters:
+          - in: body
+            name: id
+            description: "ID of the shared note"
+            schema:
+              type: string
+              minLength: 5
+              maxLength: 16
+            required: true
+        responses:
+          201:
+            description: "Success."
+          400:
+            description: "Invalid input data."
+          404:
+            description: "Invalid path"

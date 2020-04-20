@@ -1,0 +1,35 @@
+swagger: "2.0"
+
+info:
+  title: "Airport Codes"
+  description: "Get the name of an airport from its three-letter IATA code."
+  version: "1.0.0"
+
+host: "[YOUR_PROJECT_ID].appspot.com"
+basePath: "/api/v1"
+
+schemes:
+    - "https"
+paths:
+    /airportName/{iataCode}:
+      parameters: 
+      - name: iataCode
+        in: path
+        required: true
+        description: 'IATA code of the airport'
+        type: string
+        minLength: 3
+        maxLength: 3
+      get:
+        description: "Get the airport name for a given IATA code."
+        operationId: "airportGet"
+        responses:
+          200:
+            description: "Success."
+            schema: 
+              type: object
+              properties:
+                name:
+                  type: string
+          400:
+            description: "Invalid or missing IATA."

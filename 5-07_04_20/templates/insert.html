@@ -1,0 +1,22 @@
+<html>
+    <body>
+        <form method="POST" target="{{ url_for('insert') }}">
+            <label for="iataCode">IATA:</label><br>
+            <input type="text" name="iataCode" required><br>
+            <label for="airportName">Airport Name:</label><br>
+            <input type="text" name="airportName" required><br>
+            <input type="submit"><br>
+            {{recipient}}
+            <!-- {% if airports %}
+            <table>
+                {% for key, value in airports.items() %}
+                   <tr>
+                        <th> {{ key }} </th>
+                        <td> {{ value }} </td>
+                   </tr>
+                {% endfor %}
+            </table>
+            {% endif %} -->
+        </form>
+    </body>
+</html>

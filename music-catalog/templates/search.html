@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <form method="POST" target="{{ url_for('search') }}">
+            <label for="genre">Genre:</label><br>
+            <input type="text" name="genre" required><br>
+            <input type="submit"><br>
+            {{error}}
+            {% if discs %}
+            <table>
+                {% for disc in discs %}
+                    <tr>Name: {{disc.name}}, Year: {{disc.year}}, Genre: {{disc.genre}}</tr></br>
+                {% endfor %}
+            </table>
+            {% endif %}
+
+        </form>
+    </body>
+</html>

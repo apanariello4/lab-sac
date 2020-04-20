@@ -1,0 +1,17 @@
+p {
+    text-indent: 50px;
+    text-align: justify;
+    letter-spacing: 3px;
+    color: green;
+  }
+
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+th{
+  color: red
+}
+td {
+  color: green
+}

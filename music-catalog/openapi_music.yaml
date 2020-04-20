@@ -1,0 +1,160 @@
+swagger: "2.0"
+
+info:
+  title: "Music Catalog"
+  description: "An application for the management of a musical catalog"
+  version: "1.0.0"
+
+host: "firestore-sac.appspot.com"
+basePath: "/api/v1"
+
+schemes:
+    - "https"
+paths:
+    /artist/{artist_id}:
+      parameters: 
+      - name: artist_id
+        in: path
+        required: true
+        description: 'uuid of the artist.'
+        type: string
+        format: uuid
+      post:
+        description: "Insert a new artist in the catalog."
+        operationId: "postArtist"
+        consumes:
+          - application/json
+        parameters:
+          - in: body
+            name: ArtistInfo
+            description: "Infos about the artist."
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
+            required: true
+        responses:
+          201:
+            description: "Success."
+          409:
+            description: "Invalid input data."
+      get:
+        description: "Fetch infos of the artist."
+        operationId: "getArtist"
+        responses:
+          200:
+            description: "Success."
+            schema: 
+              $ref: '#/definitions/ArtistInfo'
+          404:
+            description: "The artist does not exists"
+    /disc/{artist_id}/{disc_id}:
+      parameters:
+        - name: artist_id
+          in: path
+          required: true
+          description: 'uuid of the artist.'
+          type: string
+          format: uuid
+        - name: disc_id
+          in: path
+          required: true
+          description: 'uuid of the disc.'
+          type: string
+          format: uuid
+      post:
+        description: "Insert the disc of the artist."
+        operationId: "postDisc"
+        consumes:
+          - application/json
+        parameters:
+          - in: body
+            name: DiscInfo
+            description: "Infos of the disc."
+            schema:
+              $ref: '#/definitions/DiscInfo'
+        responses:
+          201:
+            description: "Success."
+          400:
+            description: "Invalid input data."
+          409:
+            description: "The artist does not exists"
+      get:
+        description: "Fetch infos of the disc."
+        operationId: "getDisc"
+        responses:
+          200:
+            description: "Success."
+            schema:
+              $ref: '#/definitions/DiscInfo'
+    /genre/{genre}:
+      parameters:
+        - name: genre
+          in: path
+          required: true
+          description: 'genre of albums'
+          type: string
+          enum:
+            - rock
+            - pop
+            - electronic
+            - dance
+      get:
+        description: "Fetch discs of that genre"
+        operationId: "getGenre"
+        responses:
+          200:
+            description: "Success."
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/DiscInfo'
+              minItems: 1
+          400:
+            description: "Invalid input."
+definitions:
+  ArtistID:
+    type: string
+    format: uuid
+  DiscID:
+    type: string
+    format: uuid
+  Genre:
+    type: string
+    enum:
+      - rock
+      - pop
+      - electronic
+      - dance
+  Year:
+    type: integer
+    format: int32
+    minimum: 1990
+    maximum: 2020
+  ArtistInfo:
+    type: object
+    properties:
+      id:
+        $ref: '#/definitions/ArtistID'
+      name: 
+        type: string
+    example: 
+      id: "b735b474-be1c-4a3c-9316-c39a45192998"
+      name: "Daft Punk"
+  DiscInfo:
+    type: object
+    properties:
+      id:
+        $ref: '#/definitions/DiscID'
+      name: 
+        type: string
+      genre:
+        $ref: '#/definitions/Genre'
+      year:
+        $ref: '#/definitions/Year'
+    example: 
+        name: "Random Access Memories"
+        genre: electronic
+        year: 2013

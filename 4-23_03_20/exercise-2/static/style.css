@@ -1,0 +1,12 @@
+p {
+    text-indent: 50px;
+    text-align: justify;
+    letter-spacing: 3px;
+    color: green;
+  }
+
+a {
+  text-indent: 50px;
+  letter-spacing: 3px;
+  color: red;
+}
