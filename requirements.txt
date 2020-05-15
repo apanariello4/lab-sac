@@ -1,4 +1,4 @@
 flask
-falsk-restful
+flask-restful
 requests
 google-cloud-firestore

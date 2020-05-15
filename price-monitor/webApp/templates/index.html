@@ -1,0 +1,19 @@
+<html>
+
+<body>
+    <form method="POST" target="{{ url_for('index') }}">
+        <label for="user_uuid">User id (UUID4):</label><br>
+        <input type="text" name="user_uuid" required><br>
+        <input type="submit"><br>
+        {% if objects %}
+        <ul>
+            {% for object in objects %}
+            <il>object uri: {{ object.object_uri}}, percentage: {{ object.percentage}}</il> <br>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h1 font="color: red">No Objects Found</h1>
+        {% endif %}
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+swagger: "2.0"
+
+info:
+  version: "1.0"
+  title: "Cinema Booking API"
+  description: "An application for the management of the bookings of a Cinema"
+
+host: "cinema-s.appspot.com"
+basePath: "/api/v1"
+
+schemes:
+  - https
+
+paths:
+  /book/{date}/{time}:
+    parameters:
+      - name: date
+        in: path
+        required: true
+        description: "The date of the booking"
+        type: string
+        format: date
+      - name: time
+        in: path
+        required: true
+        description: "The time of the booking"
+        type: string
+        enum: ["19:30", "21:00", "22:30"]
+    post:
+      description: "Book the selected seats."
+      operationId: "PostBooking"
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: MovieBooking
+          description: "Booking information"
+          schema:
+            $ref: "#/definitions/MovieBooking"
+      responses:
+        201:
+          description: "Success."
+        400:
+          description: "Invalid data."
+        404:
+          description: "Invalid booking time."
+        409:
+          description: "Conflict. A booking already exists for at least one of the specified seats for the same date and time."
+    get:
+      description: Request information about the booking.
+      operationId: "GetBooking"
+      responses:
+        200:
+          description: "Return information associated a booking at the given time."
+          schema:
+            $ref: '#/definitions/MovieBooking'
+        404:
+          description: "The booking does not exist."
+  /book/{date}:
+    parameters:
+      - name: date
+        in: path
+        required: true
+        description: "The date of the booking"
+        type: string
+        format: date
+    get:
+      description: "Request information about all the bookings in the given date."
+      operationId: "GetBookingDay"
+      responses:
+        200:
+          description: "Success."
+          schema:
+            $ref: "#/definitions/Booking"
+        400:
+          description: "Invalid input data."
+  /auto/{date}/{time}:
+    parameters:
+      - name: date
+        in: path
+        required: true
+        description: "The date of the booking"
+        type: string
+        format: date
+      - name: time
+        in: path
+        required: true
+        description: "The time of the booking"
+        type: string
+        enum: ["19:30", "21:00", "22:30"]
+    post:
+      description: "Book the specified number of seats in the highest and most central seats available."
+      operationId: "PostAutomatic"
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: Seats
+          description: "Number of seats"
+          schema: 
+            $ref: '#/definitions/SeatNumber'
+          required: true
+      responses:
+        201:
+          description: "Success."
+        400:
+          description: "Bad request. The content of the body is not consumed."
+        403:
+          description: "Forbidden. It is not possible to reserve the seats."
+        404:
+          description: "Invalid Booking date, time."
+        409:
+          description: "Conflict. The number of requested seats its higher than the number of available seats for the selected movie."
+
+
+definitions:
+  Time:
+    type: string
+    enum: ["19:30", "21:00", "22:30"]
+    example: "21:00"
+
+  MovieBooking:
+    type: object
+    properties:
+      items:
+        type: array
+        items: 
+          $ref: "#/definitions/Seats"
+
+  Seats:
+    type: object
+    properties:
+      row: 
+        type: string
+        minLength: 1
+        maxLength: 1
+      seat:
+        type: number
+        format: int32
+        minimum: 1
+        maximum: 10
+    example: 
+      row: "A"
+      seat: 5
+          
+  Booking:
+    type: object
+    properties:
+      time:
+        $ref: "#/definitions/Time"
+      booked_seats:
+        $ref: "#/definitions/MovieBooking"
+  
+  SeatNumber:
+    type: object
+    properties:
+      num: 
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+
+    

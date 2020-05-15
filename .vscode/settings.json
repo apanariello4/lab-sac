@@ -1,7 +1,5 @@
 {
-    "python.pythonPath": "/home/nello/Desktop/lab_sac/venv/bin/python3",
+    "python.pythonPath": "/home/nello/Desktop/lab_sac/venv/bin/python3.7",
     "python.linting.pylintEnabled": false,
-    "python.linting.enabled": true,
-    "python.linting.pycodestyleEnabled": true,
-    "python.linting.pylintUseMinimalCheckers": false
+    "python.linting.enabled": true
 }

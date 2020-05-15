@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if bookings %}
+        <ul>
+            {% for date in bookings %}
+            <li>{{date|strftime}}</li>
+                <ul>
+                    {% for proj in bookings[date] %}
+                        <li>{{proj}}: {{bookings[date][proj]}}/{{100 - bookings[date][proj]}} </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1 font="color: red">No Booking Found</h1>
+    {% endif %}
+{% endblock %}

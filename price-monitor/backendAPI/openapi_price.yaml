@@ -1,0 +1,138 @@
+swagger: "2.0"
+
+info:
+  title: "Price Monitor API"
+  description: "An application for monitoring prices on e-commerce"
+  version: "1.0.0"
+
+host: "sac-price.appspot.com"
+basePath: "/api/v1"
+
+schemes:
+  - "https"
+
+paths:
+  /monitor/{user}/{object-uri}:
+    parameters:
+      - name: user
+        in: path
+        required: true
+        description: "uuid of the user"
+        type: string
+        format: uuid
+      - name: object-uri
+        in: path
+        required: true
+        description: "URI to the object"
+        type: string
+        format: url
+    post:
+      description: "Insert a new object to the monitored list"
+      operationId: "postMonitor"
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: DesiredDiscount
+          description: "Desired discount of the object"
+          schema:
+            $ref: "#/definitions/MonitorObject"
+          required: true
+      responses:
+        201:
+          description: "Success."
+        400:
+          description: "Invalid input data."
+        409:
+          description: "Conflict."
+    get:
+      description: "Get the info of the monitored object"
+      operationId: "getMonitor"
+      responses:
+        200:
+          description: "Success."
+          schema:
+            $ref: "#/definitions/MonitorObject"
+        404:
+          description: "The monitor task does not exists."
+  /details/<object-uri>:
+    parameters:
+      - name: object-uri
+        in: path
+        required: true
+        description: "URI to the object"
+        type: string
+        format: url
+    get:
+      description: "Get the details of the monitor tasks for the specified object."
+      operationId: "GetObjectTasks"
+      responses:
+        200:
+          description: "Return a list of the users monitoring the specified object."
+          schema:
+            $ref: "#/definitions/Details"
+        400:
+          description: "Invalid input data."
+        404:
+          description: "Path does not exist."
+  /monitor/<user>:
+    parameters:
+      - name: user
+        in: path
+        required: true
+        description: "uuid of the user"
+        type: string
+        format: uuid
+    get:
+      description: "Get all the monitored objects of the specified user."
+      operationId: "GetObjects"
+      responses:
+        200:
+          description: "Return a list of the monitored objects of the specified user."
+          schema:
+            $ref: "#/definitions/MonitoredObjects"
+        404:
+          description: "Path does not exist."
+definitions:
+  MonitorObject:
+    type: object
+    properties:
+      percentage:
+        $ref: "#/definitions/Percentage"
+  Details:
+    type: array
+    items:
+      type: object
+      properties:
+        user_uuid:
+          $ref: "#/definitions/User"
+        percentage:
+          $ref: "#/definitions/Percentage"
+
+    example:
+      - user_uuid: "2999aa60-fee8-11e9-b40d-20474779149f"
+        percentage: 25
+      - user_uuid: "4339821e-fee9-11e9-8981-20474779149f"
+        percentage: 50
+  Percentage:
+    type: number
+    format: int32
+    minimum: 1
+    maximum: 100
+    example: 25
+  User:
+    type: string
+    format: uuid
+    example: "2999aa60-fee8-11e9-b40d-20474779149f"
+  MonitoredObjects:
+    type: array
+    items:
+      type: object
+      properties:
+        object_uri:
+          $ref: "#/definitions/Object_uri"
+        percentage:
+          $ref: "#/definitions/Percentage"
+  Object_uri:
+    type: string
+    format: url
