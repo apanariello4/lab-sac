@@ -1,0 +1,11 @@
+runtime: python
+env: flex
+entrypoint: gunicorn api:app
+
+
+runtime_config:
+  python_version: 3
+
+endpoints_api_service:
+  name: sac-vg-market3.appspot.com
+  rollout_strategy: managed

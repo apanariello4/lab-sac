@@ -1,0 +1,9 @@
+<html>
+
+<body>
+    {% for game in games_list %}
+    <a href="/{{game['user_id']}}/{{game['game_id']}}">{{game['title']}} {{game['console']}}<br></a>
+    {% endfor %}
+</body>
+
+</html>

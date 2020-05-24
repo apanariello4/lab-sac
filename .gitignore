@@ -2,3 +2,6 @@
 venv
 credentials.json
 **/credentials.json
+.gcloudignore
+__pycache__
+
