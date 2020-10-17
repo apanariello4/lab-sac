@@ -1,0 +1,15 @@
+<html>
+
+<body>
+    {% for tag in unique_tags %}
+    <h1>{{tag}}</h1>
+    {% for meme in memes %}
+    {%if tag == meme[0]%}
+    <a href="/info/{{meme[2]}}">{{meme[1]["title"]}}</a><br>
+
+    {%endif%}
+    {%endfor%}
+    {% endfor %}
+</body>
+
+</html>

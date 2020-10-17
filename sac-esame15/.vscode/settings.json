@@ -1,0 +1,8 @@
+{
+    "python.pythonPath": "/home/nello/Desktop/sac-esame15/venv/bin/python3.7",
+    "python.linting.pylintEnabled": false,
+    "python.linting.enabled": true,
+    "python.autoComplete.extraPaths": [
+        "./backend"
+    ]
+}

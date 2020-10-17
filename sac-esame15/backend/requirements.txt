@@ -1,0 +1,7 @@
+flask
+flask-restful
+gunicorn
+marshmallow
+google-cloud-firestore
+validators
+python-Levenshtein

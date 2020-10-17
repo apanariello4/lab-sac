@@ -1,0 +1,10 @@
+<html>
+
+<body>
+    {% for event in events_list %}
+    {{event['name']}}, {{event['event']}} date: <p style="color:{{event['color']}}">{{event['date']}}</p><br>
+
+    {% endfor %}
+</body>
+
+</html>

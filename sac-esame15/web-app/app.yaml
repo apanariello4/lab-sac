@@ -1,0 +1,10 @@
+runtime: python37
+
+handlers:
+- url: /.*
+  secure: always
+  script: auto
+service: web
+
+env_variables:
+  PUBSUB_VERIFICATION_TOKEN: token124
